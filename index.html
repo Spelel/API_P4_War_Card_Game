@@ -11,10 +11,24 @@
 </head>
 </head>
 <body>
-    
-    <button id="btn">New Card</button>
-    <button id="btn_draw">New Draw</button>
+   
+    <div class="top" >
+        <button class="btnNew" id="btn">New Card</button>
+        <p class="topText" >
+            Remaining Cards:<div id="remainingCards"></div>
+        </p>
+    </div>    
+        <h2 class="h2Info" id="winnerInfo" >Game of WAR</h2>
+    <div class="cardsDisplay">
+        <!-- <p>Computer:</p> -->
+        <div class="cardOne" id="cardOne"></div>
+        <div class="cardTwo" id="cardTwo"></div>
+        <!-- <p>Player:</p> -->
+    </div>
 
+    <button class="btnDraw" id="btn_draw">Draw</button>
+
+    
     <script src="index.js" type="module"></script>
 </body>
 </html>
