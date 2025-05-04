@@ -14,16 +14,20 @@
    
     <div class="top" >
         <button class="btnNew" id="btn">New Card</button>
-        <p class="topText" >
-            Remaining Cards:<div id="remainingCards"></div>
-        </p>
-    </div>    
-        <h2 class="h2Info" id="winnerInfo" >Game of WAR</h2>
+        <p id="topText" class="topText"></p>
+    </div>
+
+    <h2 class="h2Info" id="winnerInfo" >Game of WAR</h2>
+
     <div class="cardsDisplay">
-        <!-- <p>Computer:</p> -->
+
+        <div class="score pc" id="scorePc" >Computer: 0</div>
+
         <div class="cardOne" id="cardOne"></div>
         <div class="cardTwo" id="cardTwo"></div>
-        <!-- <p>Player:</p> -->
+
+        <div class="score pl" id="scorePl" >Player: 0</div>
+        
     </div>
 
     <button class="btnDraw" id="btn_draw">Draw</button>

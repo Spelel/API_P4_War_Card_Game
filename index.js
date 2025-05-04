@@ -26,11 +26,23 @@
 // console.log(peopleWithPets)
 
 //----------------------------------------------------------------------------------------
-btn.addEventListener("click", render)
+const btnDraw = document.getElementById("btn_draw")
+let scorePC = 0
+let scorePl = 0
+
+btn.addEventListener("click", () => {
+    if (cardData.remaining === 0) {
+        btnDraw.disabled = false
+        btnDraw.style.cursor = "default"
+        render()
+    } else {
+        render()
+    }
+})
 
 let cardData = []
 
-btn_draw.addEventListener("click", () => {
+btnDraw.addEventListener("click", () => {
     fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`)
         .then(res => res.json())
         .then(data => {
@@ -38,7 +50,14 @@ btn_draw.addEventListener("click", () => {
             cardData = data
             getImgToTheDom()
             score(data.cards[0].value, data.cards[1].value)
-            cardNrRender(data.remaining)
+            // cardNrRender(data.remaining)
+            if (data.remaining === 0) {
+                btnDraw.style.cursor = "not-allowed"
+                btnDraw.disabled = true
+                cardNrRender(0)
+            } else {
+                cardNrRender(data.remaining)
+            }
         })
 })
 
@@ -65,16 +84,12 @@ function score(card1, card2) {
             document.getElementById("winnerInfo").innerHTML =`
             <h2>Computer Wins!</h2>
             `
-        } else {
+    } else {
             document.getElementById("winnerInfo").innerHTML =`
             <h2>Player Wins!</h2>
             `
-        }
+    }
 }
-
-
-
-
 
 function getImgToTheDom() {
     document.getElementById("cardOne").innerHTML = `
@@ -93,6 +108,10 @@ function render (){
     .then(data => {
         deckId = data.deck_id
         console.log("Game start")
+        document.getElementById("topText").innerHTML =`
+        Remaining Cards:<div id="remainingCards"></div>
+        `
+        cardNrRender(data.remaining)
     })
 }
 

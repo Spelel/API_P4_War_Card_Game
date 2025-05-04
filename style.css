@@ -66,9 +66,22 @@ h2 {
 }
 
 .topText {
+    display: flex;
     margin: 0;
     color: white;
-    font-size: 2.35rem;
+    font-size: 1.8rem;
     padding-left: 0.75rem;
 }
 
+.score {
+    color: white;
+    font-size: 1.95rem;
+}
+
+.pc {
+    padding-bottom: 10px;
+}
+
+.pl {
+    padding-top: 10px;
+}
