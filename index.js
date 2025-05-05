@@ -27,8 +27,12 @@
 
 //----------------------------------------------------------------------------------------
 const btnDraw = document.getElementById("btn_draw")
+const winnerInfo = document.getElementById("winnerInfo")
+let scorePc = document.getElementById("scorePc")
+let scorePl = document.getElementById("scorePl")
+
 let scorePC = 0
-let scorePl = 0
+let scoreMe = 0
 
 btn.addEventListener("click", () => {
     if (cardData.remaining === 0) {
@@ -40,13 +44,29 @@ btn.addEventListener("click", () => {
     }
 })
 
+function whoWin() {
+    if (scoreMe === scorePC) {
+        winnerInfo.innerHTML =`
+        <h2>Somehow it's a tie!</h2>
+        `
+    } else if (scorePC > scoreMe) {
+        winnerInfo.innerHTML =`
+        <h2>The winner of this round is: Computer!</h2>
+        `
+    } else {
+        winnerInfo.innerHTML =`
+        <h2>The winner of this round is: Player!</h2>
+        `
+    }
+}
+
 let cardData = []
 
 btnDraw.addEventListener("click", () => {
     fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`)
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            // console.log(data)
             cardData = data
             getImgToTheDom()
             score(data.cards[0].value, data.cards[1].value)
@@ -81,13 +101,35 @@ function score(card1, card2) {
         <h2>WAR!</h2>
         `
     } else if (card1ValueIndex > card2ValueIndex) {
-            document.getElementById("winnerInfo").innerHTML =`
+            winnerInfo.innerHTML =`
             <h2>Computer Wins!</h2>
             `
+            scorePC++
+            scorePc.textContent = `
+            Computer: ${scorePC}
+            `
     } else {
-            document.getElementById("winnerInfo").innerHTML =`
+            winnerInfo.innerHTML =`
             <h2>Player Wins!</h2>
             `
+            scoreMe++
+            scorePl.textContent =`
+            Player: ${scoreMe}
+            `
+            
+    }
+
+    if (cardData.remaining === 0) {
+        whoWin()
+        scoreMe = 0
+        scorePC = 0
+
+        scorePc.textContent = `
+            Computer: ${scorePC}
+        `
+        scorePl.textContent =`
+            Player: ${scoreMe}
+        `
     }
 }
 
